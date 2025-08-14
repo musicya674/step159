@@ -76,6 +76,33 @@ def fortune():
         return f'今日の運勢は{selected}です!頑張りましょう!'
 
 
+# ねぎらいの言葉を返す
+@app.route('/message', methods=['POST'])
+def message():
+    """
+    curl -X POST -d 'name=hoge' http://localhost:5000/message
+    """
+
+    name = request.form.get('name')
+    return f'{name}さん、いつもご苦労様です。'
+
+
+
+
+# ログイン機能のサンプル
+@app.route('/login', methods=['POST'])
+def login():
+    """
+    curl -X POST -d '{"username": "hoge", "password": "123456"}' http://localhost:5000/login
+    """
+
+    req = request.get_json(force=True)
+    username = req.get('username', '入力してください')
+    password = req.get('password', '入力してください')
+    
+    return f'ユーザー名：{username}, パスワード：{password}'
+
+
 
 if __name__ == "__main__":
     app.run()
